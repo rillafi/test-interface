@@ -1,0 +1,67 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+
+  .title {
+    font-size: 2rem;
+    color: #d0c9e4;
+    font-weight: 500;
+    text-align: center;
+    padding: 2rem 0;
+  }
+  .columnContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    gap: 2rem;
+    width: 100%;
+
+    @media screen and (max-width: 900px) {
+      padding: 2rem 0;
+    }
+
+    .rowContainer {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+      @media screen and (max-width: 900px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .faucetTitle {
+        display: flex;
+        gap: 0.3rem;
+        justify-content: flex-start;
+        @media screen and (max-width: 900px) {
+          justify-content: center;
+          align-items: center;
+        }
+        // width: 100%;
+
+        .text {
+          font-size: 1.5rem;
+          color: white;
+        }
+        .image {
+          position: relative;
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+
+      .description {
+        font-size: 1rem;
+        color: #aaaaaa;
+        text-align: right;
+        @media screen and (max-width: 900px) {
+          text-align: center;
+        }
+      }
+    }
+  }
+}

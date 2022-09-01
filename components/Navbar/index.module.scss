@@ -1,0 +1,208 @@
+.navbarContainer {
+  display: flex;
+  justify-content: space-between;
+  z-index: 3;
+  align-items: flex-end;
+  padding: 1rem;
+  // @media screen and (max-width: 600px) {
+  //   // position: absolute;
+  //   // position: static;
+  // }
+
+  .logo {
+    min-width: 125px;
+    width: 100%;
+    max-width: 250px;
+    display: block;
+  }
+  .mobileMenu {
+    position: relative;
+    display: flex;
+    // align-self: stretch;
+    // align-self: end;
+    height: 40px;
+    width: 40px;
+  }
+  .desktopMenu {
+    display: flex;
+    align-items: center;
+    padding: 0 0;
+
+    .menuList {
+      display: flex;
+      align-items: center;
+      padding: 0 0;
+
+      .navLink {
+        padding: 10px 10px;
+        font-size: 16px;
+        font-weight: 400;
+        text-decoration: none;
+        color: #fff;
+        // change color on hover
+        &:hover {
+          color: #41ead4;
+        }
+      }
+      .navLinkFocused {
+        color: #8e7dbe;
+        &:hover {
+          color: #8e7dbe;
+        }
+        // }
+      }
+    }
+  }
+}
+
+.mobileMenuDropdown {
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: height 3s;
+  // height: fit-content;
+
+  // li {
+
+  .navLink {
+    // display: inline;
+    // padding: 10px 0;
+    font-size: 16px;
+    font-weight: 400;
+    text-decoration: none;
+    color: #fff;
+  }
+  .navLinkFocused {
+    font-size: 16px;
+    font-weight: 400;
+    text-decoration: none;
+    color: #8e7dbe;
+  }
+  // }
+}
+
+.menuBtn {
+  position: absolute;
+  z-index: 3;
+  right: 35px;
+  top: 35px;
+  cursor: pointer;
+  transition: all 450ms ease-in-out;
+  &.closer {
+    transform: rotate(180deg);
+  }
+}
+
+.btnLine {
+  width: 28px;
+  height: 4px;
+  margin: 0 0 5px 0;
+  background-color: #71c57f;
+  transition: all 450ms ease-in-out;
+  &.closer {
+    background-color: #e76e81;
+    &:nth-child(1) {
+      transform: rotate(45deg) translate(4px, 0px);
+      width: 20px;
+    }
+    &:nth-child(2) {
+      transform: translateX(-8px);
+    }
+    &:nth-child(3) {
+      transform: rotate(-45deg) translate(4px, 0px);
+      width: 20px;
+    }
+  }
+}
+
+.menuOverlay {
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: white;
+  height: 100vh;
+  width: 40vw;
+  transform: translateX(100%);
+  transition: all 500ms ease-in-out;
+  &.show {
+    background-color: #fef7e1;
+    transform: translateX(0%);
+  }
+  nav {
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    a {
+      height: 30px;
+      text-decoration: none;
+      color: #eb4c54;
+      cursor: pointer;
+      transition: all 150ms ease-in-out;
+      &:hover {
+        color: #f28eba;
+      }
+    }
+  }
+  @media (max-width: 800px) {
+    width: 100vw;
+  }
+}
+
+.mobileNavWrapper {
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #292c4f;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 5rem 0;
+  position: fixed;
+  // overflow-x: scroll;
+  // animate nav opening details start
+  opacity: 0;
+  visibility: hidden;
+  height: 0%;
+  transition: opacity 0.5s, visibility 0.5s, height 0.5s;
+  overflow: hidden;
+}
+.mobileNavWrapperOpen {
+  // animate nav opening details end
+  opacity: 1;
+  visibility: visible;
+  height: 100vh;
+}
+
+.mobileLink {
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1.5rem;
+  color: #41ead4;
+  font-weight: 600;
+  padding: 0.5rem;
+  border-radius: 3px;
+  margin: 1rem 0.5rem;
+}
+.connectButton {
+  padding: 0 0.5rem;
+  margin: 1rem 0.5rem;
+  @media screen and (max-width: 600px) {
+    padding: 0.5rem;
+  }
+}
+
+.navLinkFocused {
+  // font-size: 16px;
+  // font-weight: 400;
+  // text-decoration: none;
+  color: #8e7dbe;
+  // change color on hover
+  // &:hover {
+  //   color: #41ead4;
+  // }
+}

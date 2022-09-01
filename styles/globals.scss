@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&family=Rubik:wght@300;400;500&display=swap");
+$lightGreen: #00e0ce;
+$bgPurp: #292c4f;
+html,
+body {
+  background-color: $bgPurp;
+  padding: 0;
+  margin: 0;
+  font-family: "Rubik", sans-serif;
+  height: 100%;
+  width: 100%;
+}
+
+h3 {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 31px;
+  color: #ffffff;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+// button {
+//   width: 350px;
+//   height: 50px;
+//   border-width: 0px;
+
+//   background-color: $lightGreen;
+//   color: $bgPurp;
+//   border-radius: 50px;
+//   font-size: 16px;
+//   line-height: 19px;
+
+//   /* identical to box height */
+//   text-align: center;
+//   letter-spacing: 0.04em;
+//   text-transform: uppercase;
+//   &:hover {
+//     background: #8e7dbe;
+//     cursor: pointer;
+//   }
+//   &:focus {
+//     background: #8e7dbe;
+//     border: 3px solid rgba(0, 0, 0, 0.2);
+//   }
+//   // set the color to a grayed version of the current background-color for disabled
+//   &:disabled {
+//     // a little darker than #00e0ce
+//     background: #00b3a3;
+//     // gray color
+
+//     color: #444;
+//   }
+// }
+
+.globalContainer {
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // height: 100%;
+  // width: 90vw;
+  // margin: 0 2rem;
+  overflow: hidden;
+}

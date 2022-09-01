@@ -1,0 +1,18 @@
+[
+  {
+    "address": "0x8076ffb9b236bb2659257cb5bc0c4b632d2e7787",
+    "name": "Testnet Rilla USDC",
+    "symbol": "rillaUSDC",
+    "decimals": 18,
+    "logoURI": "https://ethereum-optimism.github.io/data/USDC/logo.png",
+    "chainId": 5
+  },
+  {
+    "address": "0x2586a6bcbe0528e861cc764e4567bfe6d191a3d6",
+    "name": "Testnet Rilla",
+    "symbol": "tRILLA",
+    "decimals": 18,
+    "logoURI": "/images/svgs/rillaFiAvatar.svg",
+    "chainId": 5
+  }
+]
