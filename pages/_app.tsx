@@ -12,7 +12,7 @@ import {
   darkTheme,
 } from "@rainbow-me/rainbowkit";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
-import SnackbarProvider from "react-simple-snackbar";
+// import SnackbarProvider from "react-simple-snackbar";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 
@@ -40,36 +40,34 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const showNav = router.pathname === "/login" ? false : true;
   return (
-    <SnackbarProvider>
-      <WagmiConfig client={wagmiClient}>
-        <RainbowKitProvider
-          chains={chains}
-          theme={darkTheme({
-            accentColor: "#7dcccd",
-            accentColorForeground: "#ffffff",
-            overlayBlur: "small",
-          })}
-        >
-          <div className="globalContainer">
-            <Head>
-              <title>
-                {process.env.NODE_ENV == "development"
-                  ? "localhost"
-                  : "RillaFi"}
-              </title>
-              <meta
-                name="viewport"
-                content="width=device-width, initial-scale=1.0"
-              />
-              <link rel="icon" href="/favicon.ico" />
-            </Head>
-            {showNav && <Navbar />}
-            <Component {...pageProps} />
-            {/* {showNav && <Footer />} */}
-          </div>
-        </RainbowKitProvider>
-      </WagmiConfig>
-    </SnackbarProvider>
+    // <SnackbarProvider>
+    <WagmiConfig client={wagmiClient}>
+      <RainbowKitProvider
+        chains={chains}
+        theme={darkTheme({
+          accentColor: "#7dcccd",
+          accentColorForeground: "#ffffff",
+          overlayBlur: "small",
+        })}
+      >
+        <div className="globalContainer">
+          <Head>
+            <title>
+              {process.env.NODE_ENV == "development" ? "localhost" : "RillaFi"}
+            </title>
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1.0"
+            />
+            <link rel="icon" href="/favicon.ico" />
+          </Head>
+          {showNav && <Navbar />}
+          <Component {...pageProps} />
+          {/* {showNav && <Footer />} */}
+        </div>
+      </RainbowKitProvider>
+    </WagmiConfig>
+    // </SnackbarProvider>
   );
 }
 
