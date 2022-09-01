@@ -19,8 +19,6 @@
     "npm": "^8.19.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-simple-snackbar": "^1.1.11",
-    "react-snackbar-alert": "^2.1.0",
     "sass": "^1.54.5",
     "wagmi": "^0.6.4"
   },
