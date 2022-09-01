@@ -7,14 +7,24 @@ import { useDashboardFetch } from "../hooks/useDashboardFetch";
 import { ethers } from "ethers";
 import { useClaimTokens } from "../hooks/useClaimTokens";
 import { useEffect } from "react";
+import { wrapComponent } from "react-snackbar-alert";
+import { SnackbarProvider } from "react-simple-snackbar";
+import { useSnackbar } from "../hooks/useSnackbar";
+import { Snackbar } from "../components/Snackbar";
 
 export default function Home() {
   const {
+    data: claimTokensData,
     write: claimTokens,
     isLoading: claimTokensLoading,
     isSuccess: claimTokensSuccess,
   } = useClaimTokens();
   useEffect(() => refetch(), [claimTokensSuccess]);
+  const { isActive, openSnackBar } = useSnackbar({ timeout: 10000 });
+  useEffect(() => {
+    if (!claimTokensData) return;
+    openSnackBar();
+  }, [claimTokensLoading, claimTokensData]);
   const tasks = [
     "get testnet eth", // address balance > 0
     "Claim testnet rilla", // TokenFetch contract taskClaimedTokens > 0
@@ -25,7 +35,27 @@ export default function Home() {
     "Donate some testnet rillaUSDC", // DonationRouter contract taskDonatedRillaUSDC
     "Lock tRILLA", // VoteEscrow balanceOf
   ];
-
+  const SnackbarComponent = () => (
+    <div className={styles.snackbarContainer}>
+      <div className={styles.icon}>
+        <Image
+          layout="fill"
+          src={
+            claimTokensLoading
+              ? "/images/svgs/spinner.svg"
+              : "/images/svgs/checkmark.svg"
+          }
+        />
+      </div>
+      <Link href={`https://goerli.etherscan.io/tx/${claimTokensData?.hash}`}>
+        <a target="_blank" className={styles.explorerLink}>
+          {claimTokensLoading
+            ? "View Transaction Status"
+            : "Transaction Success"}
+        </a>
+      </Link>
+    </div>
+  );
   const { data, refetch } = useDashboardFetch();
   interface TaskList {
     title: string;
@@ -106,7 +136,9 @@ export default function Home() {
                   <button
                     className={styles.taskButton}
                     disabled={task.status}
-                    onClick={() => task.onClick?.()}
+                    onClick={async () => {
+                      task.onClick?.();
+                    }}
                   >
                     {task.buttonTitle}
                   </button>
@@ -116,6 +148,7 @@ export default function Home() {
           </>
         ))}
       </div>
+      <Snackbar isActive={isActive} Content={SnackbarComponent} />
     </div>
   );
 }

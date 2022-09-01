@@ -21,7 +21,7 @@ export function useChainTokenList(): { data: TokenListElement[] } {
     if (!chain) return;
     // TODO: Change elem.chainId == 10 to elem.chainId == chain.id
     const newChainTokenList = tokenList
-      .filter((elem) => elem.chainId == 10)
+      .filter((elem) => elem.chainId == 5)
       .sort((a, b) => a.name.localeCompare(b.name));
     setData(newChainTokenList);
   }, [chain]);

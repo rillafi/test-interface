@@ -18,13 +18,13 @@ export default function Navbar() {
     open: open,
   });
   const navInfo = [
-    { path: "/", name: "Dashboard" },
+    { path: "/", name: "Tasks" },
     { path: "/faucets", name: "Faucets" },
     { path: "/donate", name: "Donate" },
     { path: "https://demo.snapshot.org/#/rillafi.eth", name: "Governance" },
   ];
 
-  useEffect(() => console.log(displayMobileNavLinks), [displayMobileNavLinks]);
+  // useEffect(() => console.log(displayMobileNavLinks), [displayMobileNavLinks]);
   return (
     <nav id="navbar">
       <div className={styles.navbarContainer}>

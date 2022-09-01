@@ -12,7 +12,8 @@ import {
   darkTheme,
 } from "@rainbow-me/rainbowkit";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
-// import SnackbarProvider from "react-simple-snackbar";
+import SnackbarProvider from "react-simple-snackbar";
+// import { SnackbarProvider } from "react-simp";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 
@@ -22,15 +23,15 @@ export function reportWebVitals(metric: NextWebVitalsMetric) {
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { chains, provider } = configureChains(
-    [chain.goerli],
+    process.env.NODE_ENV === "development"
+      ? [chain.goerli, chain.hardhat]
+      : [chain.goerli],
     [alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()]
   );
-
   const { connectors } = getDefaultWallets({
     appName: "RillaFi",
     chains,
   });
-
   const wagmiClient = createClient({
     autoConnect: true,
     connectors,
@@ -39,6 +40,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const router = useRouter();
   const showNav = router.pathname === "/login" ? false : true;
+
   return (
     // <SnackbarProvider>
     <WagmiConfig client={wagmiClient}>
