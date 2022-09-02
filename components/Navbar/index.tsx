@@ -13,19 +13,13 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const isDesktop = useMediaQuery("(min-width: 600px)");
-  const active = classNames(styles.mobileMenu, { open });
-  const displayMobileNavLinks = classNames(styles.mobileNavWrapper, {
-    open: open,
-  });
   const navInfo = [
     { path: "/", name: "Dashboard" },
-    // { path: "/", name: "Tasks" },
     { path: "/faucets", name: "Faucets" },
     { path: "/donate", name: "Donate" },
     { path: "https://demo.snapshot.org/#/rillafi.eth", name: "Governance" },
   ];
 
-  // useEffect(() => console.log(displayMobileNavLinks), [displayMobileNavLinks]);
   return (
     <nav id="navbar">
       <div className={styles.navbarContainer}>
@@ -47,9 +41,7 @@ export default function Navbar() {
                   </a>
                 </Link>
               ))}
-              <div className={styles.connectButton}>
-                <ConnectButton accountStatus={"address"} />
-              </div>
+              <ConnectButton accountStatus={"address"} />
             </div>
           </div>
         ) : (
