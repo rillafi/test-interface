@@ -61,6 +61,13 @@ function MyApp({ Component, pageProps }: AppProps) {
               name="viewport"
               content="width=device-width, initial-scale=1.0"
             />
+            <meta
+              name="description"
+              content="Welcome to the RillaFi testnet! Thanks for helping us build the next
+              generation of web3 philanthropic tools. This testnet helps us gather
+              data to optimize RillaFi and gather potential users. We have a few
+              tasks for you to complete while you are here. See below!"
+            />
             <link rel="icon" href="/favicon.ico" />
           </Head>
           {showNav && <Navbar />}
