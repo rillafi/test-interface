@@ -41,6 +41,7 @@ export default function Navbar() {
                     className={`${styles.navLink} ${
                       router.pathname === link.path && styles.navLinkFocused
                     }`}
+                    target={link.path.charAt(0) === "/" ? "_self" : "_target"}
                   >
                     {link.name}
                   </a>
