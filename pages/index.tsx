@@ -100,11 +100,11 @@ export default function Home() {
         <span className={styles.description}>
           Welcome to the RillaFi testnet! Thanks for helping us build the next
           generation of web3 philanthropic tools. We have a few tasks for you to
-          complete while you're here. See below!{" "}
+          complete while you are here. See below!{" "}
         </span>
         <div className={styles.flexTaskBox}>
           {taskList.map((task) => (
-            <div className={styles.taskFlexBox}>
+            <div className={styles.taskFlexBox} key={task.title}>
               {/* <div className={styles.lineBreak} /> */}
               {/* <div className={styles.taskGrid} key={task.title}> */}
               <div className={styles.taskActionBox}>

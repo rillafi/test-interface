@@ -31,13 +31,13 @@ export default function faucets() {
       <div className={styles.contentContainer}>
         <span className={styles.title}>Goerli Testnet Faucets</span>
         <span className={styles.description}>
-          Use a faucet to acquire Goerli Eth for transactions. It's not worth
+          Use a faucet to acquire Goerli Eth for transactions. It is not worth
           anything, which is why you cannot purchase it. However, it can be
           mined or requested from any of these 3rd party sources below.
         </span>
         <div className={styles.flexTaskBox}>
           {faucets.map((faucet, i) => (
-            <div className={styles.taskFlexBox}>
+            <div className={styles.taskFlexBox} key={faucet.path}>
               <div className={styles.taskActionBox}>
                 <div className={styles.taskTitle}>{faucet.title}</div>
               </div>
