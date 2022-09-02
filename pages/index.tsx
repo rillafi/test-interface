@@ -99,12 +99,17 @@ export default function Home() {
         <span className={styles.title}>RillaFi Testnet Tasks</span>
         <span className={styles.description}>
           Welcome to the RillaFi testnet! Thanks for helping us build the next
-          generation of web3 philanthropic tools. We have a few tasks for you to
-          complete while you are here. See below!{" "}
+          generation of web3 philanthropic tools. This testnet helps us gather
+          data to optimize RillaFi and gather potential users. We have a few
+          tasks for you to complete while you are here. See below!{" "}
         </span>
         <div className={styles.flexTaskBox}>
           {taskList.map((task) => (
-            <div className={styles.taskFlexBox} key={task.title}>
+            <div
+              className={styles.taskFlexBox}
+              key={task.title}
+              style={task.status ? { opacity: "0.5" } : {}}
+            >
               {/* <div className={styles.lineBreak} /> */}
               {/* <div className={styles.taskGrid} key={task.title}> */}
               <div className={styles.taskActionBox}>
@@ -115,7 +120,12 @@ export default function Home() {
                     <Image layout="fill" src="/images/svgs/unchecked.svg" />
                   )}
                 </div>
-                <div className={styles.taskTitle}>{task.title}</div>
+                <div
+                  className={styles.taskTitle}
+                  // style={task.status ? { opacity: "0.5" } : {}}
+                >
+                  {task.title}
+                </div>
               </div>
               <div className={styles.taskDescription}>{task.description}</div>
               {task.linkPath ? (
