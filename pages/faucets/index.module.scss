@@ -1,65 +1,251 @@
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 3rem;
+  padding: 30px 40px;
+  margin: 40px 5vw;
+  background-color: #31345e;
+  border-radius: 20px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 
-  .title {
-    font-size: 2rem;
-    color: #d0c9e4;
-    font-weight: 500;
-    text-align: center;
-    padding: 2rem 0;
+  @media screen and (max-width: 600px) {
+    padding: 1rem 1rem;
+    margin: 1.5rem 0.5rem;
   }
-  .columnContainer {
+
+  .contentContainer {
     display: flex;
     flex-direction: column;
-    padding: 2rem;
-    gap: 2rem;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 20px;
+    // justify-content: space-between;
+    // padding: 2rem 1rem;
     width: 100%;
 
-    @media screen and (max-width: 900px) {
-      padding: 2rem 0;
+    .title {
+      font-family: "DM Sans";
+      font-style: normal;
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 31px;
+      color: #ffffff;
     }
+    .description {
+      font-family: "Rubik";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 20px;
+      /* identical to box height, or 125% */
 
-    .rowContainer {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-      @media screen and (max-width: 900px) {
-        display: flex;
-        flex-direction: column;
+      color: #d0c9e4;
+    }
+    .flexTaskBox {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 0px;
+      gap: 5px;
+      width: 100%;
+
+      .taskFlexBox {
+        display: grid;
+        background-color: #3f4478;
+        border-radius: 20px;
+
+        // display: flex;
+        // flex-direction: row;
         align-items: center;
-        gap: 0.5rem;
-      }
-
-      .faucetTitle {
-        display: flex;
-        gap: 0.3rem;
-        justify-content: flex-start;
+        justify-content: space-between;
+        padding: 1.33rem 2rem;
+        gap: 6px;
+        width: 100%;
+        // grid-gap: 20px;
+        grid-template-columns: minmax(0, 20fr) minmax(0, 30fr) minmax(0, 25fr);
+        // align-items: center;
         @media screen and (max-width: 900px) {
+          // grid-auto-flow: row;
+          grid-template-columns: 1fr;
+          grid-template-rows: auto 1fr;
+          gap: 10px;
+          justify-items: left;
+          // min-width: 100%;
+          // gri
+          // grid-template-columns: 1fr 1fr;
+        }
+        .taskActionBox {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding: 0px;
+          gap: 6px;
+          width: 100%;
+
+          .taskStatus {
+            width: 24px;
+            height: 24px;
+            position: relative;
+
+            flex: none;
+            order: 0;
+            flex-grow: 0;
+          }
+          .taskTitle {
+            font-family: "Rubik";
+            font-style: normal;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 21px;
+            width: 80%;
+            // overflow-wrap: break-word;
+            // hyphens: manual;
+
+            color: #ffffff;
+
+            flex: none;
+            order: 1;
+            flex-grow: 0;
+          }
+        }
+
+        .taskDescription {
+          font-family: "Rubik";
+          font-style: normal;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 20px;
+          /* identical to box height, or 125% */
+
+          color: #d0c9e4;
+
+          /* Inside auto layout */
+
+          flex: none;
+          order: 1;
+          flex-grow: 0;
+        }
+
+        .taskButton {
+          box-sizing: border-box;
+
+          /* Auto layout */
+
+          display: flex;
+          flex-direction: row;
           justify-content: center;
           align-items: center;
-        }
-        // width: 100%;
+          padding: 15px 30px;
+          gap: 10px;
 
-        .text {
-          font-size: 1.5rem;
-          color: white;
-        }
-        .image {
-          position: relative;
-          width: 1rem;
-          height: 1rem;
-        }
-      }
+          max-width: 280px;
+          width: 100%;
+          height: 50px;
 
-      .description {
-        font-size: 1rem;
-        color: #aaaaaa;
-        text-align: right;
-        @media screen and (max-width: 900px) {
-          text-align: center;
+          background-color: #41ead4;
+          border-radius: 50px;
+          // border: 1px solid #ffffff00;
+
+          flex: none;
+          order: 2;
+          flex-grow: 0;
+          justify-self: flex-end;
+
+          &:disabled {
+            background-color: #292c4f;
+            // border: 1px solid #292c4f;
+            .buttonText {
+              color: #3f4478;
+            }
+          }
+          &:hover {
+            background-color: #8e7dbe;
+            cursor: pointer;
+          }
+          border: 0px;
+
+          @media screen and (max-width: 900px) {
+            max-width: 100%;
+          }
+
+          .buttonText {
+            font-family: "Rubik";
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 19px;
+            /* identical to box height */
+
+            letter-spacing: 0.04em;
+
+            color: #292c4f;
+          }
+        }
+
+        a {
+          /* Inside auto layout */
+
+          flex: none;
+          order: 2;
+          flex-grow: 0;
+          justify-self: flex-end;
+          max-width: 280px;
+          width: 100%;
+          @media screen and (max-width: 900px) {
+            max-width: 100%;
+          }
+
+          .taskButton {
+            box-sizing: border-box;
+
+            /* Auto layout */
+
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 30px;
+            gap: 10px;
+
+            max-width: 280px;
+            width: 100%;
+            height: 50px;
+
+            background-color: #41ead4;
+            border-radius: 50px;
+            border: 0px;
+
+            &:disabled {
+              background-color: #292c4f;
+              &:hover {
+                background-color: #292c4f;
+              }
+              .buttonText {
+                color: #3f4478;
+              }
+            }
+            &:hover {
+              background-color: #8e7dbe;
+              cursor: pointer;
+            }
+            @media screen and (max-width: 900px) {
+              max-width: 100%;
+            }
+
+            .buttonText {
+              font-family: "Rubik";
+              font-style: normal;
+              font-weight: 500;
+              font-size: 16px;
+              line-height: 19px;
+              /* identical to box height */
+
+              letter-spacing: 0.04em;
+
+              color: #292c4f;
+            }
+          }
         }
       }
     }

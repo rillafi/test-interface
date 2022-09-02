@@ -18,7 +18,8 @@ export default function Navbar() {
     open: open,
   });
   const navInfo = [
-    { path: "/", name: "Tasks" },
+    { path: "/", name: "Dashboard" },
+    // { path: "/", name: "Tasks" },
     { path: "/faucets", name: "Faucets" },
     { path: "/donate", name: "Donate" },
     { path: "https://demo.snapshot.org/#/rillafi.eth", name: "Governance" },

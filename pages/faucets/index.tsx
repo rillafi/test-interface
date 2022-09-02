@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "./index.module.scss";
 
 export default function faucets() {
-  const linkPaths = [
+  const faucets = [
     {
       title: "Goerli Mining Faucet",
       description: "Requirements: None, other than a little computing power",
@@ -11,7 +11,7 @@ export default function faucets() {
     },
     {
       title: "Alchemy Goerli Faucet",
-      description: "Requirements: Sign up for Alchemy account",
+      description: "Requirements: Sign up for an Alchemy account",
       path: "https://goerlifaucet.com/",
     },
     {
@@ -28,23 +28,30 @@ export default function faucets() {
 
   return (
     <div className={styles.container}>
-      <span className={styles.title}>
-        Goerli Faucets (ranked from easiest to hardest)
-      </span>
-      <div className={styles.columnContainer}>
-        {linkPaths.map((link) => (
-          <div className={styles.rowContainer} key={link.path}>
-            <Link href={link.path}>
-              <a target="_blank" className={styles.faucetTitle}>
-                <span className={styles.text}> {link.title}</span>
-                <div className={styles.image}>
-                  <Image layout="fill" src="/images/svgs/link.svg" />
-                </div>
-              </a>
-            </Link>
-            <span className={styles.description}>{link.description} </span>
-          </div>
-        ))}
+      <div className={styles.contentContainer}>
+        <span className={styles.title}>Goerli Testnet Faucets</span>
+        <span className={styles.description}>
+          Use a faucet to acquire Goerli Eth for transactions. It's not worth
+          anything, which is why you cannot purchase it. However, it can be
+          mined or requested from any of these 3rd party sources below.
+        </span>
+        <div className={styles.flexTaskBox}>
+          {faucets.map((faucet, i) => (
+            <div className={styles.taskFlexBox}>
+              <div className={styles.taskActionBox}>
+                <div className={styles.taskTitle}>{faucet.title}</div>
+              </div>
+              <div className={styles.taskDescription}>{faucet.description}</div>
+              <Link href={faucet.path}>
+                <a target="_blank">
+                  <button className={styles.taskButton}>
+                    <div className={styles.buttonText}>FAUCET {i + 1}</div>
+                  </button>
+                </a>
+              </Link>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -1,14 +1,10 @@
-import type { NextPage } from "next";
 import styles from "./index.module.scss";
-import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useDashboardFetch } from "../hooks/useDashboardFetch";
 import { ethers } from "ethers";
 import { useClaimTokens } from "../hooks/useClaimTokens";
 import { useEffect } from "react";
-import { wrapComponent } from "react-snackbar-alert";
-import { SnackbarProvider } from "react-simple-snackbar";
 import { useSnackbar } from "../hooks/useSnackbar";
 import { Snackbar } from "../components/Snackbar";
 
@@ -27,8 +23,8 @@ export default function Home() {
   }, [claimTokensLoading, claimTokensData]);
   const tasks = [
     "get testnet eth", // address balance > 0
-    "Claim testnet rilla", // TokenFetch contract taskClaimedTokens > 0
-    "Donate some testnet rilla", // DonationRouter contract taskDonateTRilla
+    "Claim tRILLA", // TokenFetch contract taskClaimedTokens > 0
+    "Donate tRILLA", // DonationRouter contract taskDonateTRilla
     "Vote in governance on snapshot", // Available after snapshot proposal is done?
   ];
   const bonusTasks = [
@@ -70,83 +66,88 @@ export default function Home() {
     {
       title: "Get Goerli Eth",
       description: "Acquire Goerli Eth from one of the available faucets",
-      buttonTitle: "See Faucets",
+      buttonTitle: "SEE FAUCETS",
       linkPath: "/faucets",
       status: data[0],
     },
     {
-      title: "Claim Testnet RILLA",
+      title: "Claim tRILLA",
       description: "Claim tokens to participate in testnet activities",
-      buttonTitle: "Claim tRILLA",
+      buttonTitle: "CLAIM tRILLA",
       status: Number(ethers.utils.formatEther(data[1])) > 0,
       onClick: claimTokens,
     },
     {
-      title: "Donate testnet rilla",
+      title: "Donate tRILLA",
       description: "Great things come to those who GIVE. Donate some tRILLA!",
-      buttonTitle: "Donate tRILLA",
+      buttonTitle: "DONATE tRILLA",
       linkPath: "/donate",
       status: data[2],
     },
     {
       title: "Vote with tRILLA",
-      description: "Don't donate all of your tRILLA - save some for voting!",
-      buttonTitle: "Vote on Governance",
+      description:
+        "Don't donate all of your tRILLA - save some for voting! Check back tomorrow for a proposal that will affect the real world RILLA DAO.",
+      buttonTitle: "VOTE ON GOVERNANCE",
       linkPath: "https://demo.snapshot.org/#/rillafi.eth",
       status: false,
     },
   ];
   return (
     <div className={styles.container}>
-      <span className={styles.title}>RillaFi Testnet Tasks</span>
-      <div className={styles.checklist}>
-        {taskList.map((task) => (
-          <>
-            <div className={styles.lineBreak} />
-            <div className={styles.taskGrid} key={task.title}>
-              <div className={styles.taskStatus}>
-                {task.status ? (
-                  <Image layout="fill" src="/images/svgs/checkmark.svg" />
-                ) : (
-                  <Image layout="fill" src="/images/svgs/circleOutline2.svg" />
-                )}
-              </div>
-              <div
-                className={styles.task}
-                style={{ opacity: task.status ? 0.5 : 1 }}
-              >
+      <div className={styles.contentContainer}>
+        <span className={styles.title}>RillaFi Testnet Tasks</span>
+        <span className={styles.description}>
+          Welcome to the RillaFi testnet! Thanks for helping us build the next
+          generation of web3 philanthropic tools. We have a few tasks for you to
+          complete while you're here. See below!{" "}
+        </span>
+        <div className={styles.flexTaskBox}>
+          {taskList.map((task) => (
+            <div className={styles.taskFlexBox}>
+              {/* <div className={styles.lineBreak} /> */}
+              {/* <div className={styles.taskGrid} key={task.title}> */}
+              <div className={styles.taskActionBox}>
+                <div className={styles.taskStatus}>
+                  {task.status ? (
+                    <Image layout="fill" src="/images/svgs/check.svg" />
+                  ) : (
+                    <Image layout="fill" src="/images/svgs/unchecked.svg" />
+                  )}
+                </div>
                 <div className={styles.taskTitle}>{task.title}</div>
-                <div className={styles.taskDescription}>{task.description}</div>
-                {task.linkPath ? (
-                  <Link href={task.linkPath}>
-                    <a
-                      target={
-                        task.linkPath.charAt(0) == "/" ? "_self" : "_blank"
-                      }
-                    >
-                      <button
-                        className={styles.taskButton}
-                        disabled={task.status}
-                      >
-                        {task.buttonTitle}
-                      </button>
-                    </a>
-                  </Link>
-                ) : (
-                  <button
-                    className={styles.taskButton}
-                    disabled={task.status}
-                    onClick={async () => {
-                      task.onClick?.();
-                    }}
-                  >
-                    {task.buttonTitle}
-                  </button>
-                )}
               </div>
+              <div className={styles.taskDescription}>{task.description}</div>
+              {task.linkPath ? (
+                <Link href={task.linkPath}>
+                  <a
+                    target={task.linkPath.charAt(0) == "/" ? "_self" : "_blank"}
+                  >
+                    <button
+                      className={styles.taskButton}
+                      disabled={task.status}
+                    >
+                      <div className={styles.buttonText}>
+                        {task.buttonTitle}
+                      </div>
+                    </button>
+                  </a>
+                </Link>
+              ) : (
+                <button
+                  className={styles.taskButton}
+                  disabled={task.status}
+                  onClick={async () => {
+                    task.onClick?.();
+                  }}
+                >
+                  <div className={styles.buttonText}>{task.buttonTitle}</div>
+                </button>
+              )}
             </div>
-          </>
-        ))}
+            // </div>
+          ))}
+        </div>
       </div>
       <Snackbar isActive={isActive} Content={SnackbarComponent} />
     </div>
