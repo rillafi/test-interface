@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useNetwork, useAccount } from "wagmi";
 import TokenSelectModal from "../../components/TokenSelectModal";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useTokenList } from "../../hooks/useTokenList";
+import { useTokenList } from "../../hooks/useTokenListExp";
 import { useTokenApprove } from "../../hooks/useTokenApprove";
 import Link from "next/link";
 import { Snackbar } from "../../components/Snackbar";

@@ -24,7 +24,7 @@ export default function TokenSelectModal({
           token.symbol.toLowerCase().includes(tokenName)
       )
     );
-  }, [tokenName]);
+  }, [tokenName, tokenList]);
 
   return (
     <div className={styles.centerModal}>
@@ -34,7 +34,11 @@ export default function TokenSelectModal({
           <div className={styles.titleRow}>
             <span>Select a token</span>
             <div className={styles.imgContainer} onClick={() => setOpen(false)}>
-              <Image layout="fill" src="/images/svgs/menuClose.svg" />
+              <Image
+                layout="fill"
+                src="/images/svgs/menuClose.svg"
+                alt="menu close button"
+              />
             </div>
           </div>
           <div className={styles.searchInputSection}>
@@ -63,6 +67,7 @@ export default function TokenSelectModal({
                     layout="fill"
                     src={token.logoURI}
                     className={styles.tokenLogo}
+                    alt="token logo"
                   />
                 </div>
               </div>
