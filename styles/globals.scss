@@ -11,6 +11,12 @@ body {
   width: 100%;
 }
 
+@media (max-width: 600px) {
+  body {
+    padding-top: 100px;
+  }
+}
+
 h3 {
   font-family: "DM Sans";
   font-style: normal;

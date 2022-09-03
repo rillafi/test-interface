@@ -24,7 +24,7 @@ export default function Navbar() {
     <nav id="navbar">
       <div className={styles.navbarContainer}>
         <div className={styles.logo}>
-          <Image src={rillaFiLogo} layout="responsive" />
+          <Image src={rillaFiLogo} layout="responsive" alt="RillaFi Logo" />
         </div>
         {isDesktop ? (
           <div className={styles.desktopMenu}>

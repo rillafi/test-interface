@@ -3,10 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useDashboardFetch } from "../hooks/useDashboardFetch";
 import { ethers } from "ethers";
-import { useClaimTokens } from "../hooks/useClaimTokens";
 import { useEffect } from "react";
 import { useSnackbar } from "../hooks/useSnackbar";
 import { Snackbar } from "../components/Snackbar";
+import { useRillaContractWrite } from "../hooks/useRillaContractWrite";
 
 export default function Home() {
   const {
@@ -14,13 +14,12 @@ export default function Home() {
     write: claimTokens,
     isLoading: claimTokensLoading,
     isSuccess: claimTokensSuccess,
-  } = useClaimTokens();
-  useEffect(() => refetch(), [claimTokensSuccess]);
+  } = useRillaContractWrite("TokenClaim", "claimTokens");
   const { isActive, openSnackBar } = useSnackbar({ timeout: 10000 });
   useEffect(() => {
     if (!claimTokensData) return;
     openSnackBar();
-  }, [claimTokensLoading, claimTokensData]);
+  }, [claimTokensLoading, claimTokensData, openSnackBar]);
   const tasks = [
     "get testnet eth", // address balance > 0
     "Claim tRILLA", // TokenFetch contract taskClaimedTokens > 0
@@ -41,6 +40,7 @@ export default function Home() {
               ? "/images/svgs/spinner.svg"
               : "/images/svgs/checkmark.svg"
           }
+          alt="status"
         />
       </div>
       <Link href={`https://goerli.etherscan.io/tx/${claimTokensData?.hash}`}>
@@ -53,6 +53,7 @@ export default function Home() {
     </div>
   );
   const { data, refetch } = useDashboardFetch();
+  useEffect(() => refetch(), [claimTokensSuccess, refetch]);
   interface TaskList {
     title: string;
     description: string;
@@ -110,22 +111,23 @@ export default function Home() {
               key={task.title}
               style={task.status ? { opacity: "0.5" } : {}}
             >
-              {/* <div className={styles.lineBreak} /> */}
-              {/* <div className={styles.taskGrid} key={task.title}> */}
               <div className={styles.taskActionBox}>
                 <div className={styles.taskStatus}>
                   {task.status ? (
-                    <Image layout="fill" src="/images/svgs/check.svg" />
+                    <Image
+                      layout="fill"
+                      src="/images/svgs/check.svg"
+                      alt="checkmark"
+                    />
                   ) : (
-                    <Image layout="fill" src="/images/svgs/unchecked.svg" />
+                    <Image
+                      layout="fill"
+                      src="/images/svgs/unchecked.svg"
+                      alt="no checkmark"
+                    />
                   )}
                 </div>
-                <div
-                  className={styles.taskTitle}
-                  // style={task.status ? { opacity: "0.5" } : {}}
-                >
-                  {task.title}
-                </div>
+                <div className={styles.taskTitle}>{task.title}</div>
               </div>
               <div className={styles.taskDescription}>{task.description}</div>
               {task.linkPath ? (
@@ -155,7 +157,6 @@ export default function Home() {
                 </button>
               )}
             </div>
-            // </div>
           ))}
         </div>
       </div>

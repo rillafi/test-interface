@@ -3,12 +3,13 @@
   justify-content: space-between;
   z-index: 3;
   align-items: center;
-  // padding: 1.5rem 6.5rem;
-  margin: 1.5rem 5vw;
+  padding: 1.5rem 5vw;
+  // margin: 1.5rem 5vw;
   @media screen and (max-width: 600px) {
-    // position: absolute;
-    // position: static;
-    // align-items: flex-end;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    background-color: #292c4f;
   }
 
   .logo {

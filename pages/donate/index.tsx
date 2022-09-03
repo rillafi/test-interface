@@ -8,10 +8,10 @@ import TokenSelectModal from "../../components/TokenSelectModal";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useTokenList } from "../../hooks/useTokenList";
 import { useTokenApprove } from "../../hooks/useTokenApprove";
-import { useDonate } from "../../hooks/useDonate";
 import Link from "next/link";
 import { Snackbar } from "../../components/Snackbar";
 import { useSnackbar } from "../../hooks/useSnackbar";
+import { useRillaContractWrite } from "../../hooks/useRillaContractWrite";
 
 function Donate() {
   const { chain } = useNetwork();
@@ -35,21 +35,24 @@ function Donate() {
     data: approveData,
     isSuccess: approveSuccess,
     write: approveToken,
-  } = useTokenApprove(donationRouterAddress, currentToken.address);
+  } = useTokenApprove(donationRouterAddress, currentToken?.address);
   const {
     data: donateData,
     isSuccess: donationSuccess,
     isLoading: donateLoading,
     write: donateTokens,
-  } = useDonate(currentToken.address, delayedInput);
+  } = useRillaContractWrite("DonationRouter", "donate", [
+    currentToken?.address,
+    delayedInput,
+  ]);
   useEffect(() => {
     if (!donateData) return;
     donateOpenSnackbar();
-  }, [donateData]);
+  }, [donateData, donateOpenSnackbar]);
   useEffect(() => {
     if (!approveData) return;
     donateOpenSnackbar();
-  }, [approveData]);
+  }, [approveData, donateOpenSnackbar]);
 
   const SnackbarComponentDonate = () => (
     <div className={styles.snackbarContainer}>
@@ -61,6 +64,7 @@ function Donate() {
               ? "/images/svgs/spinner.svg"
               : "/images/svgs/checkmark.svg"
           }
+          alt="snackbar status icon"
         />
       </div>
       <Link href={`https://goerli.etherscan.io/tx/${donateData?.hash}`}>
@@ -72,7 +76,7 @@ function Donate() {
   );
   useEffect(() => {
     refetchTokenList();
-  }, [approveSuccess, donationSuccess]);
+  }, [approveSuccess, donationSuccess, refetchTokenList]);
 
   useEffect(() => {
     if (!chain) return;
@@ -109,35 +113,55 @@ function Donate() {
                 }
               }}
             />
-            <button
-              className={styles["currencySelector"]}
-              onClick={() => setOpen(true)}
-            >
-              <span>
-                <div className={styles.imgAndText}>
-                  <div className={styles.imgContainer}>
+            {Object.keys(currentToken).length == 0 ? (
+              <button
+                className={[styles.currencySelector, styles.greenBg].join(" ")}
+                onClick={() => setOpen(true)}
+              >
+                <span>
+                  <span className={`${styles.textContainer} ${styles.oneLine}`}>
+                    Select token
+                  </span>
+                  <span className={styles.svgDown}>
                     <Image
-                      className={styles.img}
                       layout="fill"
-                      src={
-                        Object.keys(currentToken).length == 0
-                          ? "/images/unknownToken.jpg"
-                          : currentToken.logoURI
-                      }
+                      src="/images/svgs/downCarat.svg"
+                      alt="dropdown icon"
                     />
+                  </span>
+                </span>
+              </button>
+            ) : (
+              <button
+                className={styles["currencySelector"]}
+                onClick={() => setOpen(true)}
+              >
+                <span>
+                  <div className={styles.imgAndText}>
+                    <div className={styles.imgContainer}>
+                      <Image
+                        className={styles.img}
+                        layout="fill"
+                        src={currentToken.logoURI}
+                        alt={`${currentToken.symbol} logo`}
+                      />
+                    </div>
                   </div>
-                </div>
-                <span className={styles.textContainer}>
-                  {Object.keys(currentToken).length == 0
-                    ? ""
-                    : currentToken.symbol}
+                  <span className={styles.textContainer}>
+                    {Object.keys(currentToken).length == 0
+                      ? "Select Token"
+                      : currentToken.symbol}
+                  </span>
+                  <span className={styles.svgDown}>
+                    <Image
+                      layout="fill"
+                      src="/images/svgs/downCarat.svg"
+                      alt="dropdown icon"
+                    />
+                  </span>
                 </span>
-
-                <span className={styles.svgDown}>
-                  <Image layout="fill" src="/images/svgs/downCarat.svg" />
-                </span>
-              </span>
-            </button>
+              </button>
+            )}
           </div>
           <div className={styles.outputTokenSection}>
             <input
@@ -155,6 +179,7 @@ function Donate() {
                       className={styles.img}
                       layout="fill"
                       src={"/images/usdcLogo.png"}
+                      alt="USDC Logo"
                     />
                   </div>
                 </div>

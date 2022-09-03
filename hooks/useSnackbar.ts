@@ -9,7 +9,7 @@ export function useSnackbar({ timeout }: { timeout: number }) {
         setIsActive(false);
       }, timeout);
     }
-  }, [isActive]);
+  }, [isActive, timeout]);
 
   const openSnackBar = () => {
     setIsActive(true);

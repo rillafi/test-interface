@@ -1,32 +1,10 @@
-import { useEffect, useState } from "react";
-import {
-  useContractWrite,
-  usePrepareContractWrite,
-  useContractReads,
-  useAccount,
-  useBalance,
-} from "wagmi";
-import { useChainId } from "./useChainId";
+import { useEffect, useState, useCallback } from "react";
+import { useContractReads, useAccount, useBalance } from "wagmi";
 import tokenClaim from "../lib/abis/5/TokenClaim.json";
 import donationRouter from "../lib/abis/5/DonationRouter.json";
 
 const dataInit = [0, 0, false, false];
 export function useDashboardFetch() {
-  // const chainId = useChainId();
-  // const [donationRouter, setDonationRouter] = useState<any>({});
-  // const [tokenClaim, setTokenClaim] = useState<any>({});
-
-  // useEffect(() => {
-  //   if (!chainId) return;
-  //   const setThem = async () => {
-  //     console.log(chainId);
-  //     setDonationRouter(
-  //       await import(`../lib/abis/${chainId}/DonationRouter.json`)
-  //     );
-  //     setTokenClaim(await import(`../lib/abis/${chainId}/TokenClaim.json`));
-  //   };
-  //   setThem();
-  // }, [chainId]);
   const tokenClaimContract = {
     addressOrName: tokenClaim.address,
     contractInterface: tokenClaim.abi,
@@ -59,10 +37,10 @@ export function useDashboardFetch() {
       },
     ],
   });
-  const refetch = () => {
+  const refetch = useCallback(() => {
     fetchBalance();
     fetchContractReads();
-  };
+  }, [fetchBalance, fetchContractReads]);
 
   useEffect(() => {
     if (!balanceData || !readData) return;
@@ -72,10 +50,7 @@ export function useDashboardFetch() {
   useEffect(() => {
     setData(dataInit);
     refetch();
-  }, [address]);
+  }, [address, refetch]);
 
-  // useEffect(() => {
-  //   console.log(donationRouter);
-  // }, [donationRouter]);
   return { data, refetch };
 }

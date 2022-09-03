@@ -24,8 +24,7 @@ export function useTokenList() {
     if (tokenList.length == 0) return;
     if (Object.keys(currentToken).length > 0) return; // avoid resetting token when updating token approvals or balances
     setCurrentToken(tokenList.find((elem) => elem.symbol == "tRILLA"));
-    console.log(tokenList[0]);
-  }, [tokenList]);
+  }, [tokenList, currentToken]);
 
   useEffect(() => {
     const tokenListCopy = chainTokenList.map((token, i) => {

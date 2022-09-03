@@ -1,3 +1,4 @@
+import { isDev } from "./../lib/config";
 import { useNetwork } from "wagmi";
 import { useEffect, useState } from "react";
 import tokenList from "../lib/tokenList.json";
@@ -19,9 +20,8 @@ export function useChainTokenList(): { data: TokenListElement[] } {
 
   useEffect(() => {
     if (!chain) return;
-    // TODO: Change elem.chainId == 10 to elem.chainId == chain.id
     const newChainTokenList = tokenList
-      .filter((elem) => elem.chainId == 5)
+      .filter((elem) => elem.chainId == (isDev ? 5 : chain.id))
       .sort((a, b) => a.name.localeCompare(b.name));
     setData(newChainTokenList);
   }, [chain]);

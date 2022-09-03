@@ -56,7 +56,6 @@
         color: #fff;
         width: 100%;
       }
-
       .currencySelector {
         -moz-box-align: center;
         align-items: center;
@@ -130,6 +129,11 @@
             font-weight: 500;
             color: #ffffff;
           }
+          .oneLine {
+            white-space: nowrap;
+            width: fit-content;
+            color: #292c4f;
+          }
 
           .svgDown {
             margin: 0px 0.25rem 0px 0.35rem;
@@ -140,6 +144,9 @@
             color: white;
           }
         }
+      }
+      .greenBg {
+        background-color: #41ead4;
       }
     }
 
@@ -172,7 +179,6 @@
         background-color: #3f4478;
         // box-shadow: rgba(0, 0, 0, 0.2) 0px 6px 10px;
         // color: rgb(0, 0, 0);
-        cursor: default;
         border-radius: 16px;
         outline: currentcolor none medium;
         user-select: none;
