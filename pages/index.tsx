@@ -69,13 +69,14 @@ export default function Home() {
       description: "Acquire Goerli Eth from one of the available faucets",
       buttonTitle: "SEE FAUCETS",
       linkPath: "/faucets",
-      status: data[0],
+      status: Boolean(data[0]),
     },
     {
       title: "Claim tRILLA",
       description: "Claim tokens to participate in testnet activities",
       buttonTitle: "CLAIM tRILLA",
-      status: Number(ethers.utils.formatEther(data[1])) > 0,
+      status:
+        Number(ethers.utils.formatEther(data[1] as ethers.utils.Result)) > 0,
       onClick: claimTokens,
     },
     {
@@ -83,7 +84,7 @@ export default function Home() {
       description: "Great things come to those who GIVE. Donate some tRILLA!",
       buttonTitle: "DONATE tRILLA",
       linkPath: "/donate",
-      status: data[2],
+      status: Boolean(data[2]),
     },
     {
       title: "Vote with tRILLA",

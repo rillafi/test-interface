@@ -2,7 +2,7 @@ import styles from "./index.module.scss";
 import { useEffect, useState } from "react";
 import { useDelayedInput } from "../../hooks/useDelayedInput";
 import Image from "next/image";
-import { useNetwork, useAccount } from "wagmi";
+import { useAccount } from "wagmi";
 import TokenSelectModal from "../../components/TokenSelectModal";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useTokenList } from "../../hooks/useTokenList";
@@ -15,7 +15,6 @@ import { useContracts } from "../../hooks/useContracts";
 
 function Donate() {
   const { contracts, isLoading } = useContracts();
-  const { chain } = useNetwork();
   const { address } = useAccount();
   const [account, setAccount] = useState("");
   useEffect(() => {

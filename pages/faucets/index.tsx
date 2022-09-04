@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 import styles from "./index.module.scss";
 
 export default function faucets() {
@@ -37,19 +38,23 @@ export default function faucets() {
         </span>
         <div className={styles.flexTaskBox}>
           {faucets.map((faucet, i) => (
-            <div className={styles.taskFlexBox} key={faucet.path}>
-              <div className={styles.taskActionBox}>
-                <div className={styles.taskTitle}>{faucet.title}</div>
+            <React.Fragment key={faucet.path}>
+              <div className={styles.taskFlexBox}>
+                <div className={styles.taskActionBox}>
+                  <div className={styles.taskTitle}>{faucet.title}</div>
+                </div>
+                <div className={styles.taskDescription}>
+                  {faucet.description}
+                </div>
+                <Link href={faucet.path}>
+                  <a target="_blank">
+                    <button className={styles.taskButton}>
+                      <div className={styles.buttonText}>FAUCET {i + 1}</div>
+                    </button>
+                  </a>
+                </Link>
               </div>
-              <div className={styles.taskDescription}>{faucet.description}</div>
-              <Link href={faucet.path}>
-                <a target="_blank">
-                  <button className={styles.taskButton}>
-                    <div className={styles.buttonText}>FAUCET {i + 1}</div>
-                  </button>
-                </a>
-              </Link>
-            </div>
+            </React.Fragment>
           ))}
         </div>
       </div>
