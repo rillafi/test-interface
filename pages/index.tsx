@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useDashboardFetch } from "../hooks/useDashboardFetch";
 import { ethers } from "ethers";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSnackbar } from "../hooks/useSnackbar";
 import { Snackbar } from "../components/Snackbar";
 import { useRillaContractWrite } from "../hooks/useRillaContractWrite";
@@ -106,60 +106,64 @@ export default function Home() {
         </span>
         <div className={styles.flexTaskBox}>
           {taskList.map((task) => (
-            <div
-              className={styles.taskFlexBox}
-              key={task.title}
-              style={task.status ? { opacity: "0.5" } : {}}
-            >
-              <div className={styles.taskActionBox}>
-                <div className={styles.taskStatus}>
-                  {task.status ? (
-                    <Image
-                      layout="fill"
-                      src="/images/svgs/check.svg"
-                      alt="checkmark"
-                    />
-                  ) : (
-                    <Image
-                      layout="fill"
-                      src="/images/svgs/unchecked.svg"
-                      alt="no checkmark"
-                    />
-                  )}
+            <React.Fragment key={task.title}>
+              <div
+                className={styles.taskFlexBox}
+                style={task.status ? { opacity: "0.5" } : {}}
+              >
+                <div className={styles.taskActionBox}>
+                  <div className={styles.taskStatus}>
+                    {task.status ? (
+                      <Image
+                        layout="fill"
+                        src="/images/svgs/check.svg"
+                        alt="checkmark"
+                      />
+                    ) : (
+                      <Image
+                        layout="fill"
+                        src="/images/svgs/unchecked.svg"
+                        alt="no checkmark"
+                      />
+                    )}
+                  </div>
+                  <div className={styles.taskTitle}>{task.title}</div>
                 </div>
-                <div className={styles.taskTitle}>{task.title}</div>
-              </div>
-              <div className={styles.taskDescription}>{task.description}</div>
-              {task.linkPath ? (
-                <Link href={task.linkPath}>
-                  <a
-                    target={task.linkPath.charAt(0) == "/" ? "_self" : "_blank"}
-                  >
-                    <button
-                      className={styles.taskButton}
-                      disabled={task.status}
+                <div className={styles.taskDescription}>{task.description}</div>
+                {task.linkPath ? (
+                  <Link href={task.linkPath}>
+                    <a
+                      target={
+                        task.linkPath.charAt(0) == "/" ? "_self" : "_blank"
+                      }
                     >
-                      <div className={styles.buttonText}>
-                        {task.buttonTitle}
-                      </div>
-                    </button>
-                  </a>
-                </Link>
-              ) : (
-                <button
-                  className={styles.taskButton}
-                  disabled={task.status}
-                  onClick={async () => {
-                    task.onClick?.();
-                  }}
-                >
-                  <div className={styles.buttonText}>{task.buttonTitle}</div>
-                </button>
-              )}
-            </div>
+                      <button
+                        className={styles.taskButton}
+                        disabled={task.status}
+                      >
+                        <div className={styles.buttonText}>
+                          {task.buttonTitle}
+                        </div>
+                      </button>
+                    </a>
+                  </Link>
+                ) : (
+                  <button
+                    className={styles.taskButton}
+                    disabled={task.status}
+                    onClick={async () => {
+                      task.onClick?.();
+                    }}
+                  >
+                    <div className={styles.buttonText}>{task.buttonTitle}</div>
+                  </button>
+                )}
+              </div>
+            </React.Fragment>
           ))}
         </div>
       </div>
+
       <Snackbar isActive={isActive} Content={SnackbarComponent} />
     </div>
   );

@@ -1,22 +1,27 @@
 import styles from "./index.module.scss";
 import { useEffect, useState } from "react";
-import donationRouter from "../../lib/abis/5/DonationRouter.json";
 import { useDelayedInput } from "../../hooks/useDelayedInput";
 import Image from "next/image";
 import { useNetwork, useAccount } from "wagmi";
 import TokenSelectModal from "../../components/TokenSelectModal";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useTokenList } from "../../hooks/useTokenListExp";
+import { useTokenList } from "../../hooks/useTokenList";
 import { useTokenApprove } from "../../hooks/useTokenApprove";
 import Link from "next/link";
 import { Snackbar } from "../../components/Snackbar";
 import { useSnackbar } from "../../hooks/useSnackbar";
 import { useRillaContractWrite } from "../../hooks/useRillaContractWrite";
+import { useContracts } from "../../hooks/useContracts";
 
 function Donate() {
+  const { contracts, isLoading } = useContracts();
   const { chain } = useNetwork();
   const { address } = useAccount();
   const [account, setAccount] = useState("");
+  useEffect(() => {
+    if (!address) return;
+    setAccount(address);
+  }, [address]);
   const {
     currentToken,
     setCurrentToken,
@@ -30,12 +35,11 @@ function Donate() {
     useSnackbar({ timeout: 10000 });
   const { delayedInput, delayedSetInput } = useDelayedInput("0");
   const [open, setOpen] = useState(false);
-  const [donationRouterAddress, setDonationRouterAddress] = useState("");
   const {
     data: approveData,
     isSuccess: approveSuccess,
     write: approveToken,
-  } = useTokenApprove(donationRouterAddress, currentToken?.address);
+  } = useTokenApprove(contracts.DonationRouter?.address, currentToken?.address);
   const {
     data: donateData,
     isSuccess: donationSuccess,
@@ -77,16 +81,6 @@ function Donate() {
   useEffect(() => {
     refetchTokenList();
   }, [approveSuccess, donationSuccess, refetchTokenList]);
-
-  useEffect(() => {
-    if (!chain) return;
-    setDonationRouterAddress(donationRouter.address);
-  }, [chain]);
-
-  useEffect(() => {
-    if (!address) return;
-    setAccount(address);
-  }, [address]);
 
   return (
     <>

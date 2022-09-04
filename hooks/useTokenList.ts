@@ -1,52 +1,59 @@
-import { useState, useEffect } from "react";
+import { useAccount } from "wagmi";
+import { useContractReads } from "wagmi";
+import { useState, useEffect, useMemo } from "react";
 import { TokenListElement } from "./useChainTokenList";
-import { useFetchAllowances } from "./useFetchAllowances";
-import { useFetchBalances } from "./useFetchBalances";
 import { useChainTokenList } from "./useChainTokenList";
 import { ethers } from "ethers";
+import { erc20ABI } from "wagmi";
+import { useContracts } from "./useContracts";
 
 export function useTokenList() {
+  const { address } = useAccount();
+  const { contracts, isLoading } = useContracts();
   const [currentToken, setCurrentToken] = useState({} as TokenListElement);
-  const [tokenList, setTokenList] = useState([] as TokenListElement[]);
   const { data: chainTokenList } = useChainTokenList();
-  const { data: tokenAllowances, refetch: refetchAllowances } =
-    useFetchAllowances(chainTokenList.map((elem) => elem.address));
-  const { data: tokenBalances, refetch: refetchBalances } = useFetchBalances(
-    chainTokenList.map((elem) => elem.address)
-  );
+  const { data: tokenData, refetch } = useContractReads({
+    contracts:
+      isLoading || chainTokenList.length == 0 || contracts === undefined
+        ? []
+        : [
+            ...chainTokenList.map((token) => {
+              return {
+                addressOrName: token.address,
+                contractInterface: erc20ABI,
+                functionName: "allowance",
+                args: [address, contracts?.DonationRouter.address],
+              };
+            }),
+            ...chainTokenList.map((token) => {
+              return {
+                addressOrName: token.address,
+                contractInterface: erc20ABI,
+                functionName: "balanceOf",
+                args: [address],
+              };
+            }),
+          ],
+  });
 
-  const refetch = () => {
-    refetchAllowances();
-    refetchBalances();
-  };
+  const tokenList = useMemo(() => {
+    if (!chainTokenList || !tokenData) return [];
+    if (tokenData.length == 0 || tokenData.some((val) => val == null))
+      return chainTokenList;
+    return chainTokenList.map((token, i) => {
+      console.log(tokenData);
+      token.allowance = Number(ethers.utils.formatEther(tokenData[i]));
+      token.balance = Number(
+        ethers.utils.formatEther(tokenData[i + chainTokenList.length])
+      );
+      return token;
+    });
+  }, [chainTokenList, tokenData]);
 
   useEffect(() => {
     if (tokenList.length == 0) return;
-    if (Object.keys(currentToken).length > 0) return; // avoid resetting token when updating token approvals or balances
+    if (Object.keys(currentToken).length > 0) return;
     setCurrentToken(tokenList.find((elem) => elem.symbol == "tRILLA"));
-  }, [tokenList, currentToken]);
-
-  useEffect(() => {
-    const tokenListCopy = chainTokenList.map((token, i) => {
-      const tokenCopy = Object.assign({ allowance: 0 }, token);
-      tokenCopy.allowance = tokenAllowances
-        ? Number(ethers.utils.formatUnits(tokenAllowances[i], token.decimals))
-        : 0;
-      tokenCopy.balance = tokenBalances
-        ? Number(ethers.utils.formatUnits(tokenBalances[i], token.decimals))
-        : 0;
-      return tokenCopy;
-    });
-    setTokenList(tokenListCopy);
-  }, [tokenAllowances, chainTokenList, tokenBalances]);
-  useEffect(() => {
-    if (!currentToken || !tokenList) return;
-    if (!tokenList.find((elem) => elem.symbol === currentToken.symbol)) return;
-    // if () {
-    setCurrentToken(
-      tokenList.find((elem) => elem.symbol === currentToken.symbol)
-    );
-    // }
   }, [tokenList, currentToken]);
 
   return { currentToken, setCurrentToken, tokenList, refetch };

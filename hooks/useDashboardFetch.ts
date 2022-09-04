@@ -1,54 +1,56 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useCallback, useMemo } from "react";
 import { useContractReads, useAccount, useBalance } from "wagmi";
-import tokenClaim from "../lib/abis/5/TokenClaim.json";
-import donationRouter from "../lib/abis/5/DonationRouter.json";
+import { useContracts } from "./useContracts";
 
 const dataInit = [0, 0, false, false];
 export function useDashboardFetch() {
-  const tokenClaimContract = {
-    addressOrName: tokenClaim.address,
-    contractInterface: tokenClaim.abi,
-  };
-  const donationRouterContract = {
-    addressOrName: donationRouter.address,
-    contractInterface: donationRouter.abi,
-  };
-  const [data, setData] = useState<any[]>(dataInit);
+  const { contracts, isLoading } = useContracts();
   const { address } = useAccount();
   const { data: balanceData, refetch: fetchBalance } = useBalance({
     addressOrName: address,
   });
   const { data: readData, refetch: fetchContractReads } = useContractReads({
-    contracts: [
-      {
-        ...tokenClaimContract,
-        functionName: "taskClaimedTokens",
-        args: [address],
-      },
-      {
-        ...donationRouterContract,
-        functionName: "taskDonateTRilla",
-        args: [address],
-      },
-      {
-        ...donationRouterContract,
-        functionName: "taskDonateRillaUSDC",
-        args: [address],
-      },
-    ],
+    contracts: isLoading
+      ? []
+      : [
+          {
+            addressOrName: contracts?.TokenClaim?.address,
+            contractInterface: contracts?.TokenClaim?.abi,
+            functionName: "taskClaimedTokens",
+            args: [address],
+          },
+          {
+            addressOrName: contracts?.DonationRouter.address,
+            contractInterface: contracts?.DonationRouter.abi,
+            functionName: "taskDonateTRilla",
+            args: [address],
+          },
+          {
+            addressOrName: contracts?.DonationRouter.address,
+            contractInterface: contracts?.DonationRouter.abi,
+            functionName: "taskDonateRillaUSDC",
+            args: [address],
+          },
+        ],
   });
   const refetch = useCallback(() => {
     fetchBalance();
     fetchContractReads();
   }, [fetchBalance, fetchContractReads]);
 
-  useEffect(() => {
-    if (!balanceData || !readData) return;
-    setData([Number(balanceData.formatted), ...readData]);
+  const data = useMemo(() => {
+    if (
+      !balanceData ||
+      !readData ||
+      readData.length === 0 ||
+      !balanceData ||
+      readData.some((val) => val === null)
+    )
+      return dataInit;
+    return [Number(balanceData.formatted), ...readData];
   }, [balanceData, readData]);
 
   useEffect(() => {
-    setData(dataInit);
     refetch();
   }, [address, refetch]);
 

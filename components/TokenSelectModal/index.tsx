@@ -1,6 +1,6 @@
 import styles from "./index.module.scss";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TokenListElement } from "../../hooks/useChainTokenList";
 import { ethers } from "ethers";
 
@@ -53,35 +53,36 @@ export default function TokenSelectModal({
         <div className={styles.separator} />
         <div className={styles.allTokens}>
           {mTokenList.map((token: TokenListElement) => (
-            <div
-              className={styles.tokenContainer}
-              onClick={() => {
-                setCurrentToken(token);
-                setOpen(false);
-              }}
-              key={token.name}
-            >
-              <div className={styles.tokenLogoFlex}>
-                <div className={styles.tokenLogoContainer}>
-                  <Image
-                    layout="fill"
-                    src={token.logoURI}
-                    className={styles.tokenLogo}
-                    alt="token logo"
-                  />
+            <React.Fragment key={token.name}>
+              <div
+                className={styles.tokenContainer}
+                onClick={() => {
+                  setCurrentToken(token);
+                  setOpen(false);
+                }}
+              >
+                <div className={styles.tokenLogoFlex}>
+                  <div className={styles.tokenLogoContainer}>
+                    <Image
+                      layout="fill"
+                      src={token.logoURI}
+                      className={styles.tokenLogo}
+                      alt="token logo"
+                    />
+                  </div>
+                </div>
+                <div className={styles.tokenNameSymbolContainer}>
+                  <div className={styles.tokenNameContainer}>
+                    <div className={styles.tokenName}>{token.name}</div>
+                  </div>
+                  <div className={styles.tokenSymbol}>{token.symbol}</div>
+                </div>
+                <div></div>
+                <div className={styles.balanceContainer}>
+                  <span>{token.balance}</span>
                 </div>
               </div>
-              <div className={styles.tokenNameSymbolContainer}>
-                <div className={styles.tokenNameContainer}>
-                  <div className={styles.tokenName}>{token.name}</div>
-                </div>
-                <div className={styles.tokenSymbol}>{token.symbol}</div>
-              </div>
-              <div></div>
-              <div className={styles.balanceContainer}>
-                <span>{token.balance}</span>
-              </div>
-            </div>
+            </React.Fragment>
           ))}
         </div>
       </div>
