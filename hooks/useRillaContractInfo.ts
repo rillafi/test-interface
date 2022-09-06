@@ -1,6 +1,4 @@
 import { useNetwork } from "wagmi";
-import { useEffect } from "react";
-import useSWR from "swr";
 import { isDev } from "../lib/config";
 import { useQuery } from "@tanstack/react-query";
 
@@ -14,6 +12,5 @@ export function useRillaContractInfo(contractName: string) {
       }&contractName=${contractName}`
     ).then((res) => res.json())
   );
-  useEffect(() => console.log(data, isLoading), [data, isLoading, error]);
   return { data, isLoading, error };
 }

@@ -2,7 +2,6 @@ import styles from "./index.module.scss";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { TokenListElement } from "../../hooks/useChainTokenList";
-import { ethers } from "ethers";
 
 export default function TokenSelectModal({
   setOpen,

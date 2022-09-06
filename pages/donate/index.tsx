@@ -1,5 +1,5 @@
 import styles from "./index.module.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDelayedInput } from "../../hooks/useDelayedInput";
 import Image from "next/image";
 import { useAccount } from "wagmi";
@@ -32,7 +32,7 @@ function Donate() {
     useSnackbar({ timeout: 10000 });
   const { isActive: approveIsActive, openSnackBar: approveOpenSnackbar } =
     useSnackbar({ timeout: 10000 });
-  const { delayedInput, delayedSetInput } = useDelayedInput("0");
+  const { delayedInput, delayedSetInput } = useDelayedInput("");
   const [open, setOpen] = useState(false);
   const {
     data: approveData,
@@ -56,6 +56,9 @@ function Donate() {
     if (!approveData) return;
     donateOpenSnackbar();
   }, [approveData, donateOpenSnackbar]);
+  useEffect(() => {
+    refetchTokenList();
+  }, [approveSuccess, donationSuccess, refetchTokenList]);
 
   const SnackbarComponentDonate = () => (
     <div className={styles.snackbarContainer}>
@@ -77,10 +80,6 @@ function Donate() {
       </Link>
     </div>
   );
-  useEffect(() => {
-    refetchTokenList();
-  }, [approveSuccess, donationSuccess, refetchTokenList]);
-
   return (
     <>
       <Snackbar isActive={donateIsActive} Content={SnackbarComponentDonate} />

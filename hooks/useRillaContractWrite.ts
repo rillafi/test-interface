@@ -1,7 +1,4 @@
-import { useState, useEffect } from "react";
 import { usePrepareContractWrite, useContractWrite, useNetwork } from "wagmi";
-import { getContractState } from "../lib/getContract";
-import { ContractInfo } from "../lib/getContract";
 import { useContracts } from "./useContracts";
 
 export function useRillaContractWrite(

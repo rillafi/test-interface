@@ -2,7 +2,32 @@ import React, { createContext, useMemo, useContext, useState } from "react";
 import { useNetwork } from "wagmi";
 import { isDev } from "../lib/config";
 import { useQueries } from "@tanstack/react-query";
-import { ContractInfo } from "../lib/getContract";
+import { ethers } from "ethers";
+
+export interface ContractInfo {
+  abi: {}[];
+  deployedTransaction: {
+    hash: string;
+    from: string;
+    gasPrice: ethers.BigNumber;
+    gasLimit: ethers.BigNumber;
+    value: ethers.BigNumber;
+    data: string;
+    r: string;
+    s: string;
+    v: number;
+    chainId: number;
+  };
+  address: string;
+  network: {
+    name: string;
+    chainId: number;
+    ensAddress: string;
+  };
+  verified: boolean;
+  contractName: string;
+  constructorArguments: any[];
+}
 
 const desiredContracts = ["DonationRouter", "TokenClaim"];
 interface ContractsResult {
