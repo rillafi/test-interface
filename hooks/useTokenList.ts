@@ -17,35 +17,29 @@ export function useTokenList() {
       isLoading || chainTokenList.length == 0 || contracts === undefined
         ? []
         : [
-            ...chainTokenList.map((token) => {
-              return {
+            ...chainTokenList.flatMap((token) => [
+              {
                 addressOrName: token.address,
                 contractInterface: erc20ABI,
                 functionName: "allowance",
                 args: [address, contracts?.DonationRouter.address],
-              };
-            }),
-            ...chainTokenList.map((token) => {
-              return {
+              },
+              {
                 addressOrName: token.address,
                 contractInterface: erc20ABI,
                 functionName: "balanceOf",
                 args: [address],
-              };
-            }),
+              },
+            ]),
           ],
   });
-
   const tokenList = useMemo(() => {
     if (!chainTokenList || !tokenData) return [];
     if (tokenData.length == 0 || tokenData.some((val) => val == null))
       return chainTokenList;
     return chainTokenList.map((token, i) => {
-      console.log(tokenData);
-      token.allowance = Number(ethers.utils.formatEther(tokenData[i]));
-      token.balance = Number(
-        ethers.utils.formatEther(tokenData[i + chainTokenList.length])
-      );
+      token.allowance = Number(ethers.utils.formatEther(tokenData[2 * i]));
+      token.balance = Number(ethers.utils.formatEther(tokenData[2 * i + 1]));
       return token;
     });
   }, [chainTokenList, tokenData]);
