@@ -51,6 +51,7 @@ export function ContractsProvider({ children }: { children: React.ReactNode }) {
               isDev ? 5 : chain?.id
             }&contractName=${contractName}`
           ).then((res) => res.json()),
+        enabled: !!chain,
       };
     }),
   });
