@@ -12,7 +12,7 @@ import { Snackbar } from "../../components/Snackbar";
 import { useSnackbar } from "../../hooks/useSnackbar";
 import { useRillaContractWrite } from "../../hooks/useRillaContractWrite";
 import { useContracts } from "../../hooks/useContracts";
-import { formatUnits } from "ethers/lib/utils";
+import { parseUnits } from "ethers/lib/utils";
 
 function Donate() {
   const { contracts, isLoading } = useContracts();
@@ -47,7 +47,7 @@ function Donate() {
     write: donateTokens,
   } = useRillaContractWrite("DonationRouter", "donate", [
     currentToken?.address,
-    formatUnits(delayedInput, 18),
+    parseUnits(delayedInput, 18),
   ]);
   useEffect(() => {
     if (!donateData) return;
