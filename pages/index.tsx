@@ -62,22 +62,22 @@ export default function Home() {
       linkPath: "https://demo.snapshot.org/#/rillafi.eth",
       status: false,
     },
-    // {
-    //   title: "Read RillaFi Whitepaper",
-    //   description:
-    //     "Check out our whitepaper to understand our protocol, our mission, and how you can get involved!",
-    //   buttonTitle: "READ WHITEPAPER",
-    //   linkPath: "https://rillafi.gitbook.io/rillafi-docs-and-support/",
-    //   status: false,
-    // },
-    // {
-    //   title: "Take RillaFi Quiz",
-    //   description:
-    //     "Now that you know everything about RillaFi, put that knowledge to the test!",
-    //   buttonTitle: "TAKE QUIZ",
-    //   linkPath: "https://rillafi.gitbook.io/rillafi-docs-and-support/",
-    //   status: false,
-    // },
+    {
+      title: "Read RillaFi Whitepaper",
+      description:
+        "Check out our whitepaper to understand our protocol, our mission, and how you can get involved!",
+      buttonTitle: "READ WHITEPAPER",
+      linkPath: "https://rillafi.gitbook.io/rillafi-docs-and-support/",
+      status: false,
+    },
+    {
+      title: "Take RillaFi Quiz",
+      description:
+        "Now that you know everything about RillaFi, put that knowledge to the test!",
+      buttonTitle: "TAKE QUIZ",
+      linkPath: "https://www.surveymonkey.com/r/75CLTCL",
+      status: false,
+    },
   ];
   useEffect(() => {
     const bonusTasks = [

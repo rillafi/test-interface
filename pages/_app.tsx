@@ -17,6 +17,7 @@ import { publicProvider } from "wagmi/providers/public";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ContractsProvider } from "../hooks/useContracts";
 import { ToastContainer } from "react-toastify";
+import { rainbowTheme } from "../lib/rainbowTheme";
 
 export function reportWebVitals(metric: NextWebVitalsMetric) {
   // console.log(metric);
