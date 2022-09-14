@@ -78,3 +78,8 @@ a {
   // margin: 0 2rem;
   overflow: hidden;
 }
+
+.lazyLoading {
+  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  background-color: var(--border-color);
+}

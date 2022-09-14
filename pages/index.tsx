@@ -26,10 +26,7 @@ export default function Home() {
     "Donate tRILLA", // DonationRouter contract taskDonateTRilla
     "Vote in governance on snapshot", // Available after snapshot proposal is done?
   ];
-  const bonusTasks = [
-    "Donate some testnet rillaUSDC", // DonationRouter contract taskDonatedRillaUSDC
-    "Lock tRILLA", // VoteEscrow balanceOf
-  ];
+
   const SnackbarComponent = () => (
     <div className={styles.snackbarContainer}>
       <div className={styles.icon}>
@@ -94,7 +91,34 @@ export default function Home() {
       linkPath: "https://demo.snapshot.org/#/rillafi.eth",
       status: false,
     },
+    // {
+    //   title: "Read RillaFi Whitepaper",
+    //   description:
+    //     "Check out our whitepaper to understand our protocol, our mission, and how you can get involved!",
+    //   buttonTitle: "READ WHITEPAPER",
+    //   linkPath: "https://rillafi.gitbook.io/rillafi-docs-and-support/",
+    //   status: false,
+    // },
+    // {
+    //   title: "Take RillaFi Quiz",
+    //   description:
+    //     "Now that you know everything about RillaFi, put that knowledge to the test!",
+    //   buttonTitle: "TAKE QUIZ",
+    //   linkPath: "https://rillafi.gitbook.io/rillafi-docs-and-support/",
+    //   status: false,
+    // },
   ];
+  useEffect(() => {
+    const bonusTasks = [
+      "Donate some testnet rillaUSDC", // DonationRouter contract taskDonatedRillaUSDC
+      "Lock tRILLA", // VoteEscrow balanceOf
+    ];
+    const logTasks = () => console.log(bonusTasks);
+    const interval = setInterval(logTasks, 3 * 60 * 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.contentContainer}>
