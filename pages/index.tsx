@@ -86,7 +86,7 @@ export default function Home() {
     {
       title: "Vote with tRILLA",
       description:
-        "Don't donate all of your tRILLA - save some for voting! Check back tomorrow for a proposal that will affect the real world RILLA DAO.",
+        "The snapshot for proposal 1 was taken Sep 13, 2022, 2:31 PM. Save your tRILLA still - another snapshot will be taken on Thursday evening with another proposal to go live.",
       buttonTitle: "VOTE ON GOVERNANCE",
       linkPath: "https://demo.snapshot.org/#/rillafi.eth",
       status: false,
