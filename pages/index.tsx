@@ -4,8 +4,6 @@ import Link from "next/link";
 import { useDashboardFetch } from "../hooks/useDashboardFetch";
 import { ethers } from "ethers";
 import React, { useEffect } from "react";
-import { useSnackbar } from "../hooks/useSnackbar";
-import { Snackbar } from "../components/Snackbar";
 import { useRillaContractWrite } from "../hooks/useRillaContractWrite";
 
 export default function Home() {
@@ -15,11 +13,6 @@ export default function Home() {
     isLoading: claimTokensLoading,
     isSuccess: claimTokensSuccess,
   } = useRillaContractWrite("TokenClaim", "claimTokens");
-  const { isActive, openSnackBar } = useSnackbar({ timeout: 10000 });
-  useEffect(() => {
-    if (!claimTokensData) return;
-    openSnackBar();
-  }, [claimTokensLoading, claimTokensData, openSnackBar]);
   const tasks = [
     "get testnet eth", // address balance > 0
     "Claim tRILLA", // TokenFetch contract taskClaimedTokens > 0
@@ -27,28 +20,6 @@ export default function Home() {
     "Vote in governance on snapshot", // Available after snapshot proposal is done?
   ];
 
-  const SnackbarComponent = () => (
-    <div className={styles.snackbarContainer}>
-      <div className={styles.icon}>
-        <Image
-          layout="fill"
-          src={
-            claimTokensLoading
-              ? "/images/svgs/spinner.svg"
-              : "/images/svgs/checkmark.svg"
-          }
-          alt="status"
-        />
-      </div>
-      <Link href={`https://goerli.etherscan.io/tx/${claimTokensData?.hash}`}>
-        <a target="_blank" className={styles.explorerLink}>
-          {claimTokensLoading
-            ? "View Transaction Status"
-            : "Transaction Success"}
-        </a>
-      </Link>
-    </div>
-  );
   const { data, refetch } = useDashboardFetch();
   useEffect(() => refetch(), [claimTokensSuccess, refetch]);
   interface TaskList {
@@ -188,8 +159,6 @@ export default function Home() {
           ))}
         </div>
       </div>
-
-      <Snackbar isActive={isActive} Content={SnackbarComponent} />
     </div>
   );
 }

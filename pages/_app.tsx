@@ -1,5 +1,6 @@
 import "../styles/globals.scss";
 import "@rainbow-me/rainbowkit/styles.css";
+import "react-toastify/dist/ReactToastify.css";
 import type { AppProps } from "next/app";
 import { NextWebVitalsMetric } from "next/app";
 import Navbar from "../components/Navbar";
@@ -15,6 +16,7 @@ import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ContractsProvider } from "../hooks/useContracts";
+import { ToastContainer } from "react-toastify";
 
 export function reportWebVitals(metric: NextWebVitalsMetric) {
   // console.log(metric);
@@ -51,6 +53,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             })}
           >
             <div className="globalContainer">
+              <ToastContainer />
               <Head>
                 <title>
                   {process.env.NODE_ENV == "development"

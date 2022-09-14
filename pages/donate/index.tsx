@@ -7,9 +7,6 @@ import TokenSelectModal from "../../components/TokenSelectModal";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useTokenList } from "../../hooks/useTokenList";
 import { useTokenApprove } from "../../hooks/useTokenApprove";
-import Link from "next/link";
-import { Snackbar } from "../../components/Snackbar";
-import { useSnackbar } from "../../hooks/useSnackbar";
 import { useRillaContractWrite } from "../../hooks/useRillaContractWrite";
 import { useContracts } from "../../hooks/useContracts";
 import { parseUnits } from "ethers/lib/utils";
@@ -29,10 +26,6 @@ function Donate() {
     refetch: refetchTokenList,
   } = useTokenList();
   const [formInput, setFormInput] = useState("");
-  const { isActive: donateIsActive, openSnackBar: donateOpenSnackbar } =
-    useSnackbar({ timeout: 10000 });
-  const { isActive: approveIsActive, openSnackBar: approveOpenSnackbar } =
-    useSnackbar({ timeout: 10000 });
   const { delayedInput, delayedSetInput } = useDelayedInput("");
   const [open, setOpen] = useState(false);
   const {
@@ -50,41 +43,11 @@ function Donate() {
     parseUnits(delayedInput ? delayedInput : "0", 18),
   ]);
   useEffect(() => {
-    if (!donateData) return;
-    donateOpenSnackbar();
-  }, [donateData, donateOpenSnackbar]);
-  useEffect(() => {
-    if (!approveData) return;
-    donateOpenSnackbar();
-  }, [approveData, donateOpenSnackbar]);
-  useEffect(() => {
     refetchTokenList();
   }, [approveSuccess, donationSuccess, refetchTokenList]);
 
-  const SnackbarComponentDonate = () => (
-    <div className={styles.snackbarContainer}>
-      <div className={styles.icon}>
-        <Image
-          layout="fill"
-          src={
-            donateLoading
-              ? "/images/svgs/spinner.svg"
-              : "/images/svgs/checkmark.svg"
-          }
-          alt="snackbar status icon"
-        />
-      </div>
-      <Link href={`https://goerli.etherscan.io/tx/${donateData?.hash}`}>
-        <a target="_blank" className={styles.explorerLink}>
-          {donateLoading ? "View Transaction Status" : "Transaction Success"}
-        </a>
-      </Link>
-    </div>
-  );
   return (
     <>
-      <Snackbar isActive={donateIsActive} Content={SnackbarComponentDonate} />
-      <Snackbar isActive={approveIsActive} Content={SnackbarComponentDonate} />
       <main className={styles["root"]}>
         <section className={styles["paper"]}>
           <div className={styles["donateLine"]}>
