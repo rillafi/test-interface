@@ -47,7 +47,7 @@ function Donate() {
     write: donateTokens,
   } = useRillaContractWrite("DonationRouter", "donate", [
     currentToken?.address,
-    parseUnits(delayedInput, 18),
+    parseUnits(delayedInput ? delayedInput : "0", 18),
   ]);
   useEffect(() => {
     if (!donateData) return;
