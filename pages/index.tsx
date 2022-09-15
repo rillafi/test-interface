@@ -82,10 +82,10 @@ export default function Home() {
   useEffect(() => {
     const bonusTasks = [
       "Donate some testnet rillaUSDC", // DonationRouter contract taskDonatedRillaUSDC
-      "Lock tRILLA", // VoteEscrow balanceOf
+      "Lock tRILLA as vetRILLA", // VoteEscrow balanceOf
     ];
-    const logTasks = () => console.log(bonusTasks);
-    const interval = setInterval(logTasks, 3 * 60 * 1000);
+    const logTasks = () => console.log("bonusTasks:", bonusTasks);
+    const interval = setInterval(logTasks, 2 * 60 * 1000);
 
     return () => clearInterval(interval);
   }, []);
