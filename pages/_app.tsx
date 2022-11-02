@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const { chains, provider } = configureChains(
         isDev ? [chain.hardhat] : [chain.goerli],
     [
-            /* jsonRpcProvider({rpc: (chain) => ({http: "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"})}), // public */
+            jsonRpcProvider({rpc: (chain) => ({http: "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"})}), // public
             alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID }), publicProvider()]
   );
   const { connectors } = getDefaultWallets({
