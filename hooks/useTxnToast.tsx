@@ -31,7 +31,7 @@ export function useTxnToast({
             href={
               chain?.network == "hardhat"
                 ? `${etherscanBlockExplorers.optimism.url}/tx/${data?.hash}`
-                : `${etherscanBlockExplorers[chain.network]}/tx/${data?.hash}`
+                : `${etherscanBlockExplorers[chain.network].url}/tx/${data?.hash}`
             }
           >
             <a target="_blank">View Pending Transaction</a>
@@ -58,7 +58,7 @@ export function useTxnToast({
             href={
               chain?.network == "hardhat"
                 ? `${etherscanBlockExplorers.optimism.url}/tx/${data?.hash}`
-                : `${etherscanBlockExplorers[chain.network]}/tx/${data?.hash}`
+                : `${etherscanBlockExplorers[chain.network].url}/tx/${data?.hash}`
             }
           >
             <a target="_blank">Success! View Transaction</a>
