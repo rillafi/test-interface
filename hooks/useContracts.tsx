@@ -29,10 +29,12 @@ export interface ContractInfo {
   constructorArguments: any[];
 }
 
-const desiredContracts = ["DonationRouter", "TokenClaim"];
+const desiredContracts = ["DonationRouter", "TokenClaim", "VoteEscrow", "tRILLA"];
 interface ContractsResult {
   DonationRouter?: ContractInfo;
   TokenClaim?: ContractInfo;
+  VoteEscrow?: ContractInfo;
+  tRILLA?: ContractInfo;
 }
 
 const ContractsContext = createContext<

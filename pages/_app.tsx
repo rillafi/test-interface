@@ -14,10 +14,12 @@ import {
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ContractsProvider } from "../hooks/useContracts";
 import { ToastContainer } from "react-toastify";
 import { rainbowTheme } from "../lib/rainbowTheme";
+import { isDev } from "../lib/config";
 
 export function reportWebVitals(metric: NextWebVitalsMetric) {
   // console.log(metric);
@@ -26,8 +28,10 @@ export function reportWebVitals(metric: NextWebVitalsMetric) {
 const queryClient = new QueryClient();
 function MyApp({ Component, pageProps }: AppProps) {
   const { chains, provider } = configureChains(
-    process.env.NODE_ENV === "development" ? [chain.hardhat] : [chain.goerli],
-    [alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()]
+        isDev ? [chain.hardhat] : [chain.goerli],
+    [
+            /* jsonRpcProvider({rpc: (chain) => ({http: "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"})}), // public */
+            alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID }), publicProvider()]
   );
   const { connectors } = getDefaultWallets({
     appName: "RillaFi",

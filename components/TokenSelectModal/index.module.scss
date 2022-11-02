@@ -104,11 +104,20 @@
     background-color: rgb(44, 47, 54);
   }
 
-  .allTokens {
-    display: flex;
-    width: 100%;
-    overflow: scroll;
-    flex-direction: column;
+    .allTokens {
+        display: flex;
+        width: 100%;
+        overflow: scroll;
+        flex-direction: column;
+        padding: 0;
+
+        // hide scroll bar
+        -ms-overflow-style: none;  /* Internet Explorer 10+ */
+        scrollbar-width: none;  /* Firefox */
+        &::-webkit-scrollbar { 
+            display: none;  /* Safari and Chrome */
+        }
+
 
     .tokenContainer {
       position: relative;
