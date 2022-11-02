@@ -50,10 +50,6 @@ export function useDashboardFetch() {
         /* fetchContractReads(); */
     }, [fetchBalance]);
 
-    useEffect(() => {
-        console.log(readData);
-    }, [readData, ])
-
     const data = useMemo(() => {
         if (
             !balanceData ||

@@ -21,7 +21,7 @@ export default function Home() {
         write: veLockToken,
         isLoading: veLockTokenLoading,
         isSuccess: veLockTokenSuccess,
-    } = useRillaContractWrite("VoteEscrow", "create_lock", [10, 1676053231]);//Math.floor(Date.now() / 1000) + 86400 * 100]);
+    } = useRillaContractWrite("VoteEscrow", "create_lock", [ethers.utils.parseEther('10'), Math.floor(Date.now() / 1000) + 86400 * 100]);
     const { contracts } = useContracts();
     const { write: veTokenApprove } = useTokenApprove(contracts?.VoteEscrow?.address, contracts?.tRILLA?.address);
     const tasks = [
